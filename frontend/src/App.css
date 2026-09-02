@@ -1,0 +1,302 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f7f8fc;
+  color: #171a2b;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.navbar {
+  height: 72px;
+  padding: 0 7%;
+  background: white;
+  border-bottom: 1px solid #e8e9ef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #6558d9;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.nav-text {
+  color: #777b8e;
+  font-size: 14px;
+}
+
+.main-content {
+  width: min(1100px, 88%);
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.hero {
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+
+.eyebrow,
+.step {
+  color: #6558d9;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  margin: 10px 0 18px;
+}
+
+.subtitle {
+  color: #696d80;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.upload-card,
+.ask-card {
+  background: white;
+  border: 1px solid #e7e8ef;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 8px 30px rgba(30, 35, 60, 0.05);
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.card-heading h2 {
+  margin: 5px 0 0;
+  font-size: 22px;
+}
+
+.step {
+  margin: 0;
+}
+
+.upload-box {
+  min-height: 230px;
+  border: 2px dashed #d7d8e4;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 30px;
+  transition: 0.2s ease;
+}
+
+.upload-box:hover {
+  border-color: #6558d9;
+  background: #faf9ff;
+}
+
+.upload-box input {
+  display: none;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #efedff;
+  color: #6558d9;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.upload-box strong {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.upload-box span {
+  color: #8a8d9e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.primary-button,
+.ask-button {
+  border: 0;
+  background: #6558d9;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+
+.primary-button:hover:not(:disabled),
+.ask-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #574bc6;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.status {
+  background: #f0f1f5;
+  color: #858897;
+  border-radius: 100px;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status.ready {
+  background: #e9f8ef;
+  color: #25814b;
+}
+
+.ask-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-area {
+  min-height: 250px;
+  background: #f8f8fb;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  padding: 35px;
+}
+
+.empty-state {
+  text-align: center;
+  max-width: 360px;
+}
+
+.sparkle {
+  color: #6558d9;
+  font-size: 32px;
+}
+
+.empty-state h3 {
+  margin: 12px 0 8px;
+}
+
+.empty-state p {
+  color: #828596;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.question-area {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.question-area textarea {
+  flex: 1;
+  min-height: 58px;
+  max-height: 130px;
+  resize: vertical;
+  border: 1px solid #dfe0e7;
+  border-radius: 12px;
+  padding: 16px;
+  outline: none;
+}
+
+.question-area textarea:focus {
+  border-color: #6558d9;
+}
+
+.ask-button {
+  border-radius: 12px;
+  padding: 0 22px;
+}
+
+@media (max-width: 800px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding-top: 45px;
+  }
+
+  .nav-text {
+    display: none;
+  }
+}
+
+.answer-content {
+  width: 100%;
+  align-self: start;
+}
+
+.answer-content p {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #383b4a;
+}
+
+.error-message {
+  color: #c0392b;
+  background: #fff0ee;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 12px 0 0;
+}
