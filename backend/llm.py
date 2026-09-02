@@ -1,4 +1,6 @@
 import os
+import time
+
 from dotenv import load_dotenv
 from google import genai
 
@@ -29,9 +31,17 @@ STUDENT QUESTION:
 Give a clear and concise answer suitable for a university student.
 """
 
-    response = client.models.generate_content(
-        model="gemini-3.7-flash",
-        contents=prompt
-    )
+    for attempt in range(3):
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.7-flash",
+                contents=prompt
+            )
 
-    return response.text
+            return response.text
+
+        except Exception as error:
+            if attempt == 2:
+                raise error
+
+            time.sleep(2)
