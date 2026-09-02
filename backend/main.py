@@ -90,17 +90,16 @@ def ask_question(request: QuestionRequest):
             request.question,
             relevant_chunks
         )
-
-    except Exception as error:
+        
+    except RuntimeError as error:
         print("Gemini error:", error)
-
         raise HTTPException(
-            status_code=503,
-            detail="AI service is temporarily unavailable. Please try again."
-        )
+        status_code=503,
+        detail="AI service is temporarily unavailable. Please try again."
+    )
     
     
     return {
-    "question": request.question,
-    "answer": answer
+        "question": request.question,
+        "answer": answer
     }

@@ -34,14 +34,16 @@ Give a clear and concise answer suitable for a university student.
     for attempt in range(3):
         try:
             response = client.models.generate_content(
-                model="gemini-3.7-flash",
-                contents=prompt
-            )
+            model="gemini-3.7-flash",
+            contents=prompt
+    )
 
             return response.text
 
         except Exception as error:
             if attempt == 2:
-                raise error
+                raise RuntimeError(
+                    "AI service is temporarily unavailable"
+                ) from error
 
             time.sleep(2)
