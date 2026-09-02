@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from backend.pdf_reader import extract_text_from_pdf
 from backend.text_chunker import chunk_text
 from backend.retriever import create_embeddings, find_relevant_chunks
+from backend.llm import generate_answer
 
 
 app = FastAPI(
@@ -64,12 +65,17 @@ def ask_question(request: QuestionRequest):
         )
 
     relevant_chunks = find_relevant_chunks(
-        request.question,
-        lecture_chunks,
-        lecture_embeddings
+    request.question,
+    lecture_chunks,
+    lecture_embeddings
     )
-
+    
+    answer = generate_answer(
+    request.question,
+    relevant_chunks
+    )
+    
     return {
-        "question": request.question,
-        "relevant_chunks": relevant_chunks
+    "question": request.question,
+    "answer": answer
     }
