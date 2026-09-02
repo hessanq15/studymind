@@ -29,7 +29,8 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error("Could not upload the lecture.");
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Could not upload the lecture.");
       }
 
       await response.json();
@@ -61,7 +62,11 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error("StudyMind could not answer the question.");
+        const errorData = await response.json();
+        throw new Error(
+          errorData.detail || "StudyMind could not answer the question."
+        );
+        
       }
 
       const data = await response.json();
@@ -190,6 +195,12 @@ function App() {
                 value={question}
                 disabled={!uploaded || asking}
                 onChange={(event) => setQuestion(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    askQuestion();
+                  }
+                }}
               />
 
               <button

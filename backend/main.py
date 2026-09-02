@@ -73,16 +73,32 @@ def ask_question(request: QuestionRequest):
             detail="Upload a lecture PDF first"
         )
 
+    if not request.question.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+
     relevant_chunks = find_relevant_chunks(
-    request.question,
-    lecture_chunks,
-    lecture_embeddings
+        request.question,
+        lecture_chunks,
+        lecture_embeddings
     )
+
+    try:
+        answer = generate_answer(
+            request.question,
+            relevant_chunks
+        )
+
+    except Exception as error:
+        print("Gemini error:", error)
+
+        raise HTTPException(
+            status_code=503,
+            detail="AI service is temporarily unavailable. Please try again."
+        )
     
-    answer = generate_answer(
-    request.question,
-    relevant_chunks
-    )
     
     return {
     "question": request.question,
