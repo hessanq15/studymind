@@ -1,7 +1,7 @@
 from pypdf import PdfReader
 
-def extract_text_from_pdf(file_path):
-    reader = PdfReader(file_path)
+def extract_text_from_pdf(file):
+    reader = PdfReader(file)
     text = ""
 
     for page in reader.pages:
