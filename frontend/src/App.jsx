@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import "./App.css";
 
 function App() {
@@ -169,7 +170,7 @@ function App() {
                 </div>
               ) : answer ? (
                 <div className="answer-content">
-                  <p>{answer}</p>
+                  <ReactMarkdown>{answer}</ReactMarkdown>
                 </div>
               ) : (
                 <div className="empty-state">

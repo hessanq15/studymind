@@ -41,6 +41,8 @@ Give a clear and concise answer suitable for a university student.
             return response.text
 
         except Exception as error:
+
+
             if attempt == 2:
                 raise RuntimeError(
                     "AI service is temporarily unavailable"
