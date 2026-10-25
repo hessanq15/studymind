@@ -42,6 +42,7 @@ def home():
 
 
 @app.post("/upload")
+@app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
     global lecture_chunks, lecture_embeddings
 
@@ -52,7 +53,7 @@ async def upload_pdf(file: UploadFile = File(...)):
         )
 
     try:
-    text = extract_text_from_pdf(file.file)
+        text = extract_text_from_pdf(file.file)
     except Exception:
         raise HTTPException(
             status_code=400,
@@ -63,10 +64,9 @@ async def upload_pdf(file: UploadFile = File(...)):
         raise HTTPException(
             status_code=400,
             detail="No readable text could be extracted from this PDF."
-            )
-            
-            lecture_chunks = chunk_text(text)
+        )
 
+    lecture_chunks = chunk_text(text)
     lecture_embeddings = create_embeddings(lecture_chunks)
 
     return {
