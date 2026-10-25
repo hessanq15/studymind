@@ -1,241 +1,163 @@
 # StudyMind 🌸
 
-StudyMind is an AI-powered study assistant that allows students to upload lecture notes as a PDF and ask questions about their own material.
+## Live Demo
 
-Instead of sending an entire document directly to an AI model, StudyMind uses a retrieval-based pipeline to identify the sections of the lecture most relevant to a student's question before generating an answer.
+🌸 **Try StudyMind:** [Open the live application](https://studymind-frontend-rugg.onrender.com)
+
+> The backend is hosted on Render's free tier, so the first request may take a short time while the service wakes up.
+
+StudyMind is an AI-powered study assistant that allows students to upload lecture PDFs and ask questions about their own course material.
+
+Rather than answering from general knowledge, StudyMind retrieves relevant sections from the uploaded lecture notes and provides them to Gemini as context, helping keep answers grounded in the student's own material.
 
 ## Features
 
 - Upload lecture notes as PDF files
-- Extract and process lecture text
-- Split documents into overlapping text chunks
-- Generate semantic embeddings using Sentence Transformers
-- Retrieve the lecture sections most relevant to a question
-- Generate answers grounded in the uploaded lecture material using Gemini
-- Render structured AI responses with Markdown
-- Handle invalid, unreadable and empty PDFs
-- Retry temporary AI API failures
-- Responsive multi-page React interface
-- Loading, error and document-ready states
+- Extract and split lecture text into overlapping chunks
+- Generate embeddings for semantic search
+- Retrieve lecture sections relevant to a student's question
+- Generate AI answers grounded in the uploaded lecture material
+- Display structured AI responses using Markdown
+- Multi-page React interface
+- Loading, validation and API error handling
+- Deployed frontend and backend
 
-## How StudyMind Works
+## Interface
 
-StudyMind follows a Retrieval-Augmented Generation (RAG) style pipeline:
+### Home
+![StudyMind home page](screenshots/home.png)
 
-```text
-Lecture PDF
-     ↓
-Text extraction
-     ↓
-Overlapping text chunks
-     ↓
-Sentence Transformer embeddings
-     ↓
-Student question
-     ↓
-Semantic similarity search
-     ↓
-Top relevant lecture chunks
-     ↓
-Gemini + retrieved context
-     ↓
-Grounded answer
-```
+### Study Workspace
+Upload lecture notes and ask questions grounded in the uploaded material.
 
-The uploaded PDF is first converted into text and divided into overlapping sections.
+![StudyMind study workspace](screenshots/study.png)
 
-StudyMind uses the `all-MiniLM-L6-v2` Sentence Transformer model to create embeddings representing the semantic meaning of these sections.
+### How It Works
+StudyMind includes an overview of the retrieval pipeline behind the application.
 
-When a student asks a question, an embedding is also generated for the question. Similarity is used to retrieve the lecture chunks most relevant to it.
+![StudyMind how it works page](screenshots/how-it-works.png)
 
-Only this relevant context is supplied to Gemini along with the question, allowing StudyMind to generate an answer based on the student's lecture material.
+## How It Works
+
+StudyMind uses a retrieval-augmented generation (RAG) pipeline:
+
+1. **PDF Extraction** - Text is extracted from the uploaded lecture PDF.
+2. **Chunking** - The lecture is divided into smaller overlapping sections.
+3. **Embeddings** - Embeddings represent the meaning of the lecture chunks.
+4. **Retrieval** - StudyMind finds the chunks most relevant to the student's question.
+5. **Generation** - The relevant lecture context and question are sent to Gemini to generate an answer.
+
+### RAG Pipeline
+
+PDF  
+↓  
+Text Extraction  
+↓  
+Overlapping Chunks  
+↓  
+Embeddings  
+↓  
+Semantic Retrieval  
+↓  
+Relevant Lecture Context  
+↓  
+Gemini  
+↓  
+Answer
 
 ## Tech Stack
 
 ### Frontend
-
 - React
-- JavaScript
 - Vite
+- JavaScript
 - React Markdown
 - CSS
 
 ### Backend
-
 - Python
 - FastAPI
-- Pydantic
+- Gemini API
 - pypdf
-- Sentence Transformers
-- Google Gemini API
 
-## Interface
-
-StudyMind uses a retro digital-notebook inspired interface with three main views:
-
-- **Home** — introduces the application and workflow
-- **Study** — contains the PDF upload and AI question-answer workspace
-- **How it works** — explains the retrieval pipeline behind StudyMind
-
-## Screenshots
-
-### Home
-
-_Add Home page screenshot here._
-
-### Study Workspace
-
-_Add Study page screenshot here._
-
-### How It Works
-
-_Add How It Works screenshot here._
+### Tools & Deployment
+- Git
+- GitHub
+- Render
 
 ## Project Structure
 
-```text
-studymind/
-├── backend/
-│   ├── llm.py
-│   ├── main.py
-│   ├── pdf_reader.py
-│   ├── retriever.py
-│   └── text_chunker.py
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── App.css
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
-│
-├── .gitignore
-└── README.md
-```
+    studymind/
+    ├── backend/
+    │   ├── llm.py
+    │   ├── main.py
+    │   ├── pdf_reader.py
+    │   ├── retriever.py
+    │   └── text_chunker.py
+    ├── frontend/
+    │   └── src/
+    │       ├── App.jsx
+    │       ├── App.css
+    │       └── index.css
+    └── README.md
 
-## Running StudyMind Locally
+## Running Locally
 
-### 1. Clone the repository
+### Backend
 
-```bash
-git clone https://github.com/hessanq15/studymind.git
-cd studymind
-```
+Create and activate a Python virtual environment and install the required dependencies.
 
-### 2. Create a Python virtual environment
+Create a `.env` file in the project root and add your Gemini API key:
 
-```bash
-python -m venv .venv
-```
+    GEMINI_API_KEY=your_api_key
 
-On Windows Command Prompt:
+Run the FastAPI backend:
 
-```cmd
-.venv\Scripts\activate.bat
-```
+    python -m uvicorn backend.main:app --reload
 
-### 3. Install backend dependencies
+The backend will run locally on port 8000.
 
-Install the Python packages required by the backend:
+### Frontend
 
-```bash
-pip install fastapi uvicorn python-multipart pypdf sentence-transformers python-dotenv google-genai
-```
+Open a second terminal and move into the frontend directory:
 
-### 4. Configure Gemini
+    cd frontend
 
-Create a `.env` file in the root of the project:
+Install the dependencies:
 
-```text
-GEMINI_API_KEY=your_api_key_here
-```
+    npm install
 
-The `.env` file is excluded from version control.
+Start the development server:
 
-### 5. Start the backend
+    npm run dev
 
-From the project root:
-
-```bash
-python -m uvicorn backend.main:app --reload
-```
-
-The FastAPI backend will run at:
-
-```text
-http://127.0.0.1:8000
-```
-
-### 6. Install frontend dependencies
-
-Open another terminal:
-
-```bash
-cd frontend
-npm install
-```
-
-### 7. Start the frontend
-
-```bash
-npm run dev
-```
-
-Then open the local Vite address shown in the terminal.
-
-## Error Handling
-
-StudyMind includes handling for several common failure cases, including:
-
-- non-PDF uploads
-- invalid or unreadable PDFs
-- PDFs containing no extractable text
-- empty questions
-- questions submitted before a lecture is uploaded
-- temporary Gemini API failures
-- frontend loading and disabled states to prevent duplicate actions
-
-## Current Limitations
-
-StudyMind V1 stores the processed lecture and its embeddings in memory. Restarting the backend therefore clears the currently uploaded lecture.
-
-The current PDF pipeline extracts embedded text and does not perform OCR on image-only or scanned documents.
-
-The application currently supports one active lecture at a time.
-
-These areas could be expanded in future versions with persistent storage, user accounts and document management.
-
-## Future Improvements
-
-Potential future additions include:
-
-- user accounts
-- saved lecture libraries
-- persistent study sessions
-- conversation history
-- support for multiple documents
-- OCR for scanned lecture notes
-- flashcard and quiz generation
+The frontend will run locally using Vite.
 
 ## What I Learned
 
 Building StudyMind gave me practical experience with:
 
-- designing a full-stack application
-- building APIs with FastAPI
-- connecting a React frontend to a Python backend
-- extracting and processing PDF content
-- semantic embeddings and similarity-based retrieval
-- Retrieval-Augmented Generation concepts
-- integrating an external LLM API
-- asynchronous frontend requests
-- API and UI error handling
-- environment variables and API key security
-- Git and GitHub development workflows
+- Building and connecting a React frontend and FastAPI backend
+- Designing a retrieval pipeline for document-based question answering
+- Working with embeddings and semantic similarity
+- Integrating an external LLM API
+- Handling API failures and user-facing errors
+- Managing environment variables and API keys securely
+- Deploying a full-stack AI application
+- Using Git and GitHub throughout development
+
+## Future Improvements
+
+StudyMind's current version focuses on its core RAG functionality. Future additions could include:
+
+- User accounts
+- Saved lectures and study sessions
+- Multiple document support
+- Flashcard generation
+- Quiz generation
+- Conversation history
+- Improved document management and retrieval
 
 ## Author
 
-Built by **Hessa Nayab Qureshi**.
+Built by Hessa Nayab Qureshi.
