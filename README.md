@@ -25,17 +25,18 @@ Rather than answering from general knowledge, StudyMind retrieves relevant secti
 ## Interface
 
 ### Home
-![StudyMind home page](screenshots/home.png)
+
+![StudyMind home page](/screenshots/home.png)
 
 ### Study Workspace
 Upload lecture notes and ask questions grounded in the uploaded material.
 
-![StudyMind study workspace](screenshots/study.png)
+![StudyMind study workspace (/screenshots/study.png)
 
 ### How It Works
 StudyMind includes an overview of the retrieval pipeline behind the application.
 
-![StudyMind how it works page](screenshots/how-it-works.png)
+![StudyMind how it works page](/screenshots/how-it-works.png)
 
 ## How It Works
 
