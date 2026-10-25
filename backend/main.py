@@ -51,9 +51,21 @@ async def upload_pdf(file: UploadFile = File(...)):
             detail="Only PDF files are supported"
         )
 
+    try:
     text = extract_text_from_pdf(file.file)
+    except Exception:
+        raise HTTPException(
+            status_code=400,
+            detail="Could not read this PDF. Please upload a valid PDF file."
+        )
 
-    lecture_chunks = chunk_text(text)
+    if not text.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="No readable text could be extracted from this PDF."
+            )
+            
+            lecture_chunks = chunk_text(text)
 
     lecture_embeddings = create_embeddings(lecture_chunks)
 

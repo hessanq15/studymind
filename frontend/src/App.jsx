@@ -130,6 +130,7 @@ function App() {
                 onChange={(event) => {
                   setFile(event.target.files[0]);
                   setUploaded(false);
+                  setQuestion("");
                   setAnswer("");
                   setError("");
                 }}
